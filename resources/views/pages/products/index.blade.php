@@ -39,46 +39,48 @@
                             <div class="clearfix mb-3"></div>
                             <form method="GET" action="{{ route('products.index') }}">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request()->get('search') }}">
+                                    <input type="text" class="form-control" placeholder="Search" name="name" value="{{ request()->get('search') }}">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit">Search</button>
                                     </div>
                                 </div>
                             </form>
-                            <table class="table-bordered table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Stock</th>
-                                        <th scope="col">Created At</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($products as $row)
-                                    <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-                                        <td scope="row">{{ $row->category }}</td>
-                                        <td scope="row">{{ $row->name }}</td>
-                                        <td scope="row">Rp{{ number_format($row->price, 2, ",", ".") }}</td>
-                                        <td scope="row">{{ $row->stock }}</td>
-                                        <td scope="row">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y') }}</td>
-                                        <td scope="row">
-                                            <a href="{{ route('products.edit', $row) }}" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('products.destroy', $row) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            {{ $products->withQueryString()->links() }}
+                            <div class="table-responsive">
+                                <table class="table-bordered table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Stock</th>
+                                            <th scope="col">Created At</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($products as $row)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td scope="row">{{ $row->category }}</td>
+                                            <td scope="row">{{ $row->name }}</td>
+                                            <td scope="row">Rp{{ number_format($row->price, 2, ",", ".") }}</td>
+                                            <td scope="row">{{ $row->stock }}</td>
+                                            <td scope="row">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y') }}</td>
+                                            <td scope="row">
+                                                <a href="{{ route('products.edit', $row) }}" class="btn btn-success">Edit</a>
+                                                <form action="{{ route('products.destroy', $row) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                {{ $products->withQueryString()->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::apiResource('list-products', \App\Http\Controllers\Api\ProductController::class);
+    Route::apiResource('api-product', \App\Http\Controllers\Api\ProductController::class);
     // Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
     // Route::apiResource('categories', \App\Http\Controllers\Api\CategoryController::class);
     // Route::apiResource('orders', \App\Http\Controllers\Api\OrderController::class);

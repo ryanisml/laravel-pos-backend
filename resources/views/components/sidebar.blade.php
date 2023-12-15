@@ -8,10 +8,10 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Main Menu</li>
-            <li class="{{ Request::is('/') ? 'active' : '' }}">
-                <a href="{{ url('/') }}" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <li class="{{ Request::is('home') ? 'active' : '' }}">
+                <a href="{{ url('/home') }}" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown {{ (Request::segment(1) == 'users') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i>
                     <span>User</span></a>
                 <ul class="dropdown-menu">
@@ -23,7 +23,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown {{ Request::is('products') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i>
                     <span>Product</span></a>
                 <ul class="dropdown-menu">
