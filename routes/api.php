@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,11 @@ use App\Http\Controllers\Api\AuthController;
 
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
 Route::post('register', [AuthController::class, 'register']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::apiResource('api-product', \App\Http\Controllers\Api\ProductController::class);
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+    // Route::apiResource('api-product', \App\Http\Controllers\Api\ProductController::class);
     // Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
     // Route::apiResource('categories', \App\Http\Controllers\Api\CategoryController::class);
     // Route::apiResource('orders', \App\Http\Controllers\Api\OrderController::class);
@@ -38,4 +40,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::apiResource('order-statuses', \App\Http\Controllers\Api\OrderStatusController::class);
     // Route::apiResource('order-statuses', \App\Http\Controllers\Api\OrderStatusController::class);
     // Route::apiResource('order-statuses', \App\Http\Controllers\Api\OrderStatusController::class);
+// });
+// Route::middleware('auth', ['except' => ['api-product']]);
+Route::get('api-product', function(){
+    return Product::orderBy('created_at', 'desc')->paginate();
 });

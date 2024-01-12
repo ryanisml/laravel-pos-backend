@@ -54,6 +54,7 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Stock</th>
+                                            <th scope="col">Photo</th>
                                             <th scope="col">Created At</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -66,6 +67,16 @@
                                             <td scope="row">{{ $row->name }}</td>
                                             <td scope="row">Rp{{ number_format($row->price, 2, ",", ".") }}</td>
                                             <td scope="row">{{ $row->stock }}</td>
+                                            <td>
+                                                    @if ($row->image_path)
+                                                        <img src="{{ asset('storage/img/products/'.$row->image_path) }}" alt=""
+                                                            width="100px" class="img-thumbnail">
+                                                            @else
+                                                            <span class="badge badge-danger">No Image</span>
+
+                                                    @endif
+
+                                                </td>
                                             <td scope="row">{{ \Carbon\Carbon::parse($row->created_at)->format('d F Y') }}</td>
                                             <td scope="row">
                                                 <a href="{{ route('products.edit', $row) }}" class="btn btn-success">Edit</a>
